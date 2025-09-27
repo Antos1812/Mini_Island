@@ -138,13 +138,53 @@ class MiniControlIsland : Form
 
     void RefreshProcesses()
     {
-        var all = Process.GetProcesses().Where(p=>!string.IsNullOrEmpty(p.MainWindowTitle)).ToArray();
-        if(cmbSort.SelectedIndex==1) all = all.OrderByDescending(p=>{ try{return p.WorkingSet64;}catch{return 0;} }).ToArray();
-        if(cmbSort.SelectedIndex==2) all = all.OrderBy(p=>p.ProcessName).ToArray();
-        cachedProcesses = all;
+        var allProcesses = Process.GetProcesses();
+        var trayProcesses = new List<Process>();
+
+        foreach (var p in allProcesses)
+        {
+            try
+            {
+                IntPtr hwnd = GetTopLevelWindowForProcess(p.Id);
+                if (hwnd != IntPtr.Zero)
+                {
+                    if (!IsWindowOnTaskbar(hwnd))
+                    {
+                        trayProcesses.Add(p);
+                    }
+                }
+            }
+            catch { }
+        }
+
+        if (cmbSort.SelectedIndex == 1)
+            trayProcesses = trayProcesses.OrderByDescending(p => { try { return p.WorkingSet64; } catch { return 0; } }).ToList();
+        if (cmbSort.SelectedIndex == 2)
+            trayProcesses = trayProcesses.OrderBy(p => p.ProcessName).ToList();
+
+        cachedProcesses = trayProcesses.ToArray();
         lst.Items.Clear();
-        for(int i=0;i<all.Length && i<9;i++) lst.Items.Add($"{i+1}. {all[i].ProcessName}");
+        for (int i = 0; i < trayProcesses.Count && i < 9; i++)
+            lst.Items.Add($"{i + 1}. {trayProcesses[i].ProcessName}");
     }
+
+
+
+
+    [DllImport("user32.dll")]
+static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+const int GWL_EXSTYLE = -20;
+const int WS_EX_APPWINDOW = 0x00040000;
+const int WS_EX_TOOLWINDOW = 0x00000080;
+
+    bool IsWindowOnTaskbar(IntPtr hWnd)
+    {
+        int exStyle = GetWindowLong(hWnd, GWL_EXSTYLE);
+        return (exStyle & WS_EX_APPWINDOW) != 0;  // If it has WS_EX_APPWINDOW, it’s on taskbar
+    }
+
+
+
 
     void OpenOrFocusProcess(Process p)
     {

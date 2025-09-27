@@ -179,7 +179,7 @@ class MiniControlIsland : Form
 
         cachedProcesses = trayProcesses.ToArray();
         lst.Items.Clear();
-        for (int i = 0; i < trayProcesses.Count && i < 9; i++)
+        for (int i = 0; i < trayProcesses.Count && i < 20; i++)
             lst.Items.Add($"{i + 1}. {trayProcesses[i].ProcessName}");
     }
 

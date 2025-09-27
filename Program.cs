@@ -36,17 +36,17 @@ class MiniControlIsland : Form
         StartPosition = FormStartPosition.CenterScreen;
         Size = new Size(620, 360);
         TopMost = true;
-        BackColor = Color.FromArgb(30, 30, 30);
+        BackColor = Color.FromArgb(30, 0, 80);
         Opacity = 0.95;
         ShowInTaskbar = false;
         Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
-        lst = new ListBox() { Dock = DockStyle.Fill, Font = new Font("SF-Pro-Display", 10), BorderStyle = BorderStyle.None };
+        lst = new ListBox() { Dock = DockStyle.Fill, Font = new Font("SF-Pro-Display", 10), BorderStyle = BorderStyle.None};
         Controls.Add(lst);
 
         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
         Label lbl = new Label() { Text = "MCI - Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("SF-Pro-Display", 10, FontStyle.Bold), Location = new Point(8, 8) };
-        cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList };
+        cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList};
         cmbSort.Items.AddRange(new string[] { "Important", "Storage", "Name" });
         cmbSort.SelectedIndex = 0;
         cmbSort.SelectedIndexChanged += (s, e) => RefreshProcesses();
@@ -73,12 +73,105 @@ class MiniControlIsland : Form
 
         var menu = new ContextMenuStrip();
         menu.Items.Insert(0, new ToolStripLabel("MCI by 1NT4K"));
+        menu.Items.Add("Settings", null, (s, e) => { var SettingsWindow = new SettingsWindow { Owner = this }; SettingsWindow.ShowDialog(); });
         menu.Items.Add("∑ author", null, (s, e) => OpenGithub());
+        menu.Items.Insert(3, new ToolStripLabel("––––––––––––"));
         menu.Items.Add("✓ Open", null, (s, e) => { Visible = true; RefreshProcesses(); });
         menu.Items.Add("⟳ Restart", null, (s, e) => RestartApp());
         menu.Items.Add("✕ Close", null, (s, e) => Application.Exit());
         trayIcon.ContextMenuStrip = menu;
+
         
+    }
+
+    public class SettingsWindow : Form
+    {
+
+        [DllImport("gdi32.dll")]
+        static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,
+            int nWidthEllipse, int nHeightEllipse);
+
+        public SettingsWindow()
+        {
+            FormBorderStyle = FormBorderStyle.None;
+            StartPosition = FormStartPosition.Manual;
+            Size = new Size(620, 360);
+            TopMost = true;
+            BackColor = Color.FromArgb(40, 40, 40);
+            Opacity = 0.98;
+            ShowInTaskbar = false;
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+
+
+            Label lbl = new Label()
+            {
+                Text = "⚙ Settings",
+                ForeColor = Color.White,
+                Font = new Font("SF-Pro-Display", 12, FontStyle.Bold),
+                Location = new Point(16, 12),
+                AutoSize = true
+            };
+            Controls.Add(lbl);
+            Button btnDark = new Button()
+            {
+                Text = "Dark Theme",
+                Location = new Point(20, 60),
+                Width = 150,
+                BackColor = Color.MediumPurple,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnDark.Click += (s, e) => Owner.BackColor = Color.FromArgb(30, 30, 30);
+            Controls.Add(btnDark);
+
+            
+            Button btnPurple = new Button()
+            {
+                Text = "Purple Theme",
+                Location = new Point(20, 110),
+                Width = 150,
+                BackColor = Color.MediumPurple,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnPurple.Click += (s, e) => Owner.BackColor = Color.FromArgb(30, 0, 25);
+            Controls.Add(btnPurple);
+
+            Button btnBlue = new Button()
+            {
+                Text = "Blue Theme",
+                Location = new Point(20, 160),
+                Width = 150,
+                BackColor = Color.DodgerBlue,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnBlue.Click += (s, e) => Owner.BackColor = Color.FromArgb(80, 120, 200);
+            Controls.Add(btnBlue);
+
+
+
+            Button closeBtn = new Button()
+            {
+                Text = "✕",
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(60, 60, 60),
+                FlatStyle = FlatStyle.Popup,
+                Size = new Size(30, 30),
+                Location = new Point(this.Width - 40, 10)
+            };
+            closeBtn.FlatAppearance.BorderSize = 0;
+            closeBtn.Click += (s, e) => this.Close();
+            Controls.Add(closeBtn);
+
+            Shown += (s, e) =>
+            {
+                if (Owner != null)
+                { Location = new Point(Owner.Left + 0, Owner.Top + 0); }
+            };
+            
+        }
     }
 
     void    OpenGithub()
@@ -96,6 +189,41 @@ class MiniControlIsland : Form
             MessageBox.Show("Error: Cannot open - " + ex.Message);
             }
         }
+
+    // void SettingsColor()
+    // {
+    //     try
+    //     {
+    //         FormBorderStyle = FormBorderStyle.None;
+    //         StartPosition = FormStartPosition.CenterScreen;
+    //         Size = new Size(620, 360);
+    //         TopMost = true;
+    //         BackColor = Color.FromArgb(30, 0, 30);
+    //         Opacity = 0.95;
+
+    //         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
+    //         Label lbl = new Label() { Text = "MCI - Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("SF-Pro-Display", 10, FontStyle.Bold), Location = new Point(8, 8) };
+    //         cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList };
+
+    //     }
+    //     catch (Exception)
+    //     {
+    //         MessageBox.Show("Cannot load Settings (￣_,￣ )");
+    //     }
+    // }
+
+
+    // void DarkMode()
+    // {
+    //     try
+    //     {
+    //         BackColor = Color.FromArgb(80, 120, 200);
+    //     }
+    //     catch (Exception)
+    //     {
+    //         MessageBox.Show("Cannot change to dark (￣_,￣ )");
+    //     }
+    // }
 
     void RestartApp()
     {

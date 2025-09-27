@@ -24,6 +24,10 @@ class MiniControlIsland : Form
     [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr hWnd);
     [DllImport("user32.dll")] static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
     [DllImport("gdi32.dll")] static extern IntPtr CreateRoundRectRgn(int nLeftRect,int nTopRect,int nRightRect,int nBottomRect,int nWidthEllipse,int nHeightEllipse);
+    [DllImport("user32.dll")] static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+    [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+    [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr hWnd);
+    delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
     const int SW_RESTORE = 9;
 
     public MiniControlIsland()
@@ -88,12 +92,11 @@ class MiniControlIsland : Form
             }
             else if(e.Alt)
             {
-                MessageBox.Show($"Ustawienia {pct.ProcessName}");
+                MessageBox.Show($"Settings {pct.ProcessName}");
             }
             else
             {
-                try { ShowWindow(pct.MainWindowHandle, SW_RESTORE); SetForegroundWindow(pct.MainWindowHandle); } catch {}
-                Visible = false;
+                OpenOrFocusProcess(pct);
             }
         }
     }
@@ -116,6 +119,51 @@ class MiniControlIsland : Form
         cachedProcesses = all;
         lst.Items.Clear();
         for(int i=0;i<all.Length && i<9;i++) lst.Items.Add($"{i+1}. {all[i].ProcessName}");
+    }
+
+    void OpenOrFocusProcess(Process p)
+    {
+        try
+        {
+            IntPtr h = GetTopLevelWindowForProcess(p.Id);
+            if (h != IntPtr.Zero)
+            {
+                ShowWindow(h, SW_RESTORE);
+                SetForegroundWindow(h);
+                Visible = false;
+                return;
+            }
+
+            if (p.MainWindowHandle != IntPtr.Zero)
+            {
+                try { ShowWindow(p.MainWindowHandle, SW_RESTORE); SetForegroundWindow(p.MainWindowHandle); Visible = false; return; } catch { }
+
+            }
+            string path = null;
+            try { path = p.MainModule.FileName; } catch { }
+            if (!string.IsNullOrEmpty(path))
+            {
+                try { Process.Start(new ProcessStartInfo { FileName = path, UseShellExecute = true }); Visible = false; return; } catch { }
+            }
+        }
+        catch { }
+        MessageBox.Show("Cannot open process" + p.ProcessName);
+    }
+
+    IntPtr GetTopLevelWindowForProcess(int pid)
+    {
+        IntPtr found = IntPtr.Zero;
+        EnumWindows((hWnd, lParam) =>
+        {
+            GetWindowThreadProcessId(hWnd, out uint proc);
+            if (proc == pid && IsWindowVisible(hWnd))
+            {
+                found = hWnd;
+                return false;
+            }
+            return true;
+        }, IntPtr.Zero);
+        return found;
     }
 
     protected override void OnFormClosing(FormClosingEventArgs e)

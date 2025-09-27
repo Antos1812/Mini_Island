@@ -72,26 +72,45 @@ class MiniControlIsland : Form
         trayIcon.Text = "MCI";
 
         var menu = new ContextMenuStrip();
-        menu.Items.Add("Open", null, (s, e) => { Visible = true; RefreshProcesses(); });
-        menu.Items.Add("Close", null, (s, e) => Application.Exit());
-        menu.Items.Insert(0, new ToolStripLabel("by 1NT4K"));
+        menu.Items.Insert(0, new ToolStripLabel("MCI by 1NT4K"));
+        menu.Items.Add("∑ author", null, (s, e) => OpenGithub());
+        menu.Items.Add("✓ Open", null, (s, e) => { Visible = true; RefreshProcesses(); });
+        menu.Items.Add("✕ Close", null, (s, e) => Application.Exit());
+        trayIcon.ContextMenuStrip = menu;
         
     }
+
+    void    OpenGithub()
+        {
+            try
+            {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://github.com/Antos1812/Mini_Island",
+                UseShellExecute = true
+            });
+            }
+            catch (Exception ex)
+            {
+            MessageBox.Show("Error: Cannot open - " + ex.Message);
+            }
+        }
+    
 
     private void MiniControlIsland_KeyDown(object? sender, KeyEventArgs e)
     {
         int idx = -1;
-        if(e.KeyCode >= Keys.D1 && e.KeyCode <= Keys.D9) idx = (int)(e.KeyCode - Keys.D1);
-        if(e.KeyCode >= Keys.NumPad1 && e.KeyCode <= Keys.NumPad9) idx = (int)(e.KeyCode - Keys.NumPad1);
-        if(idx >= 0 && idx < lst.Items.Count)
+        if (e.KeyCode >= Keys.D1 && e.KeyCode <= Keys.D9) idx = (int)(e.KeyCode - Keys.D1);
+        if (e.KeyCode >= Keys.NumPad1 && e.KeyCode <= Keys.NumPad9) idx = (int)(e.KeyCode - Keys.NumPad1);
+        if (idx >= 0 && idx < lst.Items.Count)
         {
             var pct = cachedProcesses[idx];
-            if(e.Control)
+            if (e.Control)
             {
-                try { pct.Kill(); } catch {}
+                try { pct.Kill(); } catch { }
                 RefreshProcesses();
             }
-            else if(e.Alt)
+            else if (e.Alt)
             {
                 MessageBox.Show($"Settings {pct.ProcessName}");
             }

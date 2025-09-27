@@ -1,0 +1,15 @@
+C:\Users\User\Desktop\www\MiniIsland\bin\Debug\net9.0-windows\MiniIsland.exe
+C:\Users\User\Desktop\www\MiniIsland\bin\Debug\net9.0-windows\MiniIsland.deps.json
+C:\Users\User\Desktop\www\MiniIsland\bin\Debug\net9.0-windows\MiniIsland.runtimeconfig.json
+C:\Users\User\Desktop\www\MiniIsland\bin\Debug\net9.0-windows\MiniIsland.dll
+C:\Users\User\Desktop\www\MiniIsland\bin\Debug\net9.0-windows\MiniIsland.pdb
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.AssemblyInfo.cs
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.sourcelink.json
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.dll
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\refint\MiniIsland.dll
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.pdb
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\MiniIsland.genruntimeconfig.cache
+C:\Users\User\Desktop\www\MiniIsland\obj\Debug\net9.0-windows\ref\MiniIsland.dll

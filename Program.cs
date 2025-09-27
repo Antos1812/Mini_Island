@@ -118,7 +118,7 @@ class MiniControlIsland : Form
                 Text = "Dark Theme",
                 Location = new Point(20, 60),
                 Width = 150,
-                BackColor = Color.MediumPurple,
+                BackColor = Color.DarkGray,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
@@ -149,6 +149,26 @@ class MiniControlIsland : Form
             };
             btnBlue.Click += (s, e) => Owner.BackColor = Color.FromArgb(80, 120, 200);
             Controls.Add(btnBlue);
+
+            Label lbl1 = new Label()
+            {
+                Text = "ShortCuts:",
+                ForeColor = Color.White,
+                Font = new Font("SF-Pro-Display", 12, FontStyle.Bold),
+                Location = new Point(btnBlue.Left, btnBlue.Bottom +15),
+                AutoSize = true
+            };
+            Controls.Add(lbl1);
+
+            Label lbl2 = new Label()
+            {
+                Text = "('1-20') -> Focus     (Ctrl + '1-20') -> Kill     (Alt + '1-20') -> Settings (WIP)",
+                ForeColor = Color.White,
+                Font = new Font("SF-Pro-Display", 10, FontStyle.Bold),
+                Location = new Point(lbl1.Left, lbl1.Bottom +5),
+                AutoSize = true
+            };
+            Controls.Add(lbl2);
 
 
 

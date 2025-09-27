@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MiniIsland")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63d21d86c6cdc54f3d6c00d8fbce504d785342b0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d29ee916a3a169dd5000e41c3bf812653091af2")]
 [assembly: System.Reflection.AssemblyProductAttribute("MiniIsland")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MiniIsland")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

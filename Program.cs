@@ -106,7 +106,12 @@ class MiniControlIsland : Form
         if(m.Msg == WM_HOTKEY && m.WParam.ToInt32() == HOTKEY_ID)
         {
             Visible = !Visible;
-            if(Visible) RefreshProcesses();
+            if (Visible)
+            {
+                RefreshProcesses();
+                Activate();
+                Focus();
+            }
         }
         base.WndProc(ref m);
     }

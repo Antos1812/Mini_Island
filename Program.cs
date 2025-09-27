@@ -41,7 +41,7 @@ class MiniControlIsland : Form
         ShowInTaskbar = false;
         Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
-        lst = new ListBox() { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 10), BorderStyle = BorderStyle.None };
+        lst = new ListBox() { Dock = DockStyle.Fill, Font = new Font("SF-Pro", 10), BorderStyle = BorderStyle.None };
         Controls.Add(lst);
 
         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
@@ -75,6 +75,7 @@ class MiniControlIsland : Form
         menu.Items.Insert(0, new ToolStripLabel("MCI by 1NT4K"));
         menu.Items.Add("∑ author", null, (s, e) => OpenGithub());
         menu.Items.Add("✓ Open", null, (s, e) => { Visible = true; RefreshProcesses(); });
+        menu.Items.Add("⟳ Restart", null, (s, e) => RestartApp());
         menu.Items.Add("✕ Close", null, (s, e) => Application.Exit());
         trayIcon.ContextMenuStrip = menu;
         
@@ -95,6 +96,20 @@ class MiniControlIsland : Form
             MessageBox.Show("Error: Cannot open - " + ex.Message);
             }
         }
+
+    void RestartApp()
+    {
+        try
+        {
+            Process.Start(Application.ExecutablePath);
+
+            Application.Exit();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Cannot restart CRY BOUT IT :" + ex.Message);
+        }
+    }
     
 
     private void MiniControlIsland_KeyDown(object? sender, KeyEventArgs e)

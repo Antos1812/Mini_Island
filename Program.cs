@@ -12,6 +12,8 @@ class MiniControlIsland : Form
     const uint VK_SPACE = 0x20;
     const int WM_HOTKEY = 0x0312;
 
+    NotifyIcon trayIcon;
+
     ListBox lst;
     ComboBox cmbSort;
     System.Windows.Forms.Timer refreshTimer;
@@ -33,32 +35,42 @@ class MiniControlIsland : Form
         BackColor = Color.FromArgb(30, 30, 30);
         Opacity = 0.95;
         ShowInTaskbar = false;
-        Region = Region.FromHrgn(CreateRoundRectRgn(0,0,Width,Height,20,20));
+        Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
         lst = new ListBox() { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 10), BorderStyle = BorderStyle.None };
         Controls.Add(lst);
 
         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
-        Label lbl = new Label() { Text = "Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 10, FontStyle.Bold), Location = new Point(8,8) };
-        cmbSort = new ComboBox() { Width = 200, Location = new Point(180,4), DropDownStyle = ComboBoxStyle.DropDownList };
-        cmbSort.Items.AddRange(new string[]{"Najważniejsze","Pamięć","Nazwa"});
+        Label lbl = new Label() { Text = "Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 10, FontStyle.Bold), Location = new Point(8, 8) };
+        cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList };
+        cmbSort.Items.AddRange(new string[] { "Najważniejsze", "Pamięć", "Nazwa" });
         cmbSort.SelectedIndex = 0;
-        cmbSort.SelectedIndexChanged += (s,e)=> RefreshProcesses();
+        cmbSort.SelectedIndexChanged += (s, e) => RefreshProcesses();
         top.Controls.Add(lbl); top.Controls.Add(cmbSort);
         Controls.Add(top);
 
         refreshTimer = new System.Windows.Forms.Timer() { Interval = 2000 };
-        refreshTimer.Tick += (s,e) => RefreshProcesses();
+        refreshTimer.Tick += (s, e) => RefreshProcesses();
         refreshTimer.Start();
 
         KeyPreview = true;
         KeyDown += MiniControlIsland_KeyDown;
 
         var ok = RegisterHotKey(Handle, HOTKEY_ID, MOD_CONTROL, VK_SPACE);
-        if(!ok) MessageBox.Show("Hotkey error");
+        if (!ok) MessageBox.Show("Hotkey error");
 
         Visible = false;
         RefreshProcesses();
+
+        trayIcon = new NotifyIcon();
+        trayIcon.Icon = SystemIcons.Application;
+        trayIcon.Visible = true;
+        trayIcon.Text = "Mini Control Island";
+
+        var menu = new ContextMenuStrip();
+        menu.Items.Add("Open", null, (s, e) => { Visible = true; RefreshProcesses(); });
+        menu.Items.Add("Close", null, (s, e) => Application.Exit());
+        trayIcon.ContextMenuStrip = menu;
     }
 
     private void MiniControlIsland_KeyDown(object? sender, KeyEventArgs e)

@@ -45,7 +45,7 @@ class MiniControlIsland : Form
         Controls.Add(lst);
 
         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
-        Label lbl = new Label() { Text = "Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 10, FontStyle.Bold), Location = new Point(8, 8) };
+        Label lbl = new Label() { Text = "MCI - Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 10, FontStyle.Bold), Location = new Point(8, 8) };
         cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList };
         cmbSort.Items.AddRange(new string[] { "Najważniejsze", "Pamięć", "Nazwa" });
         cmbSort.SelectedIndex = 0;

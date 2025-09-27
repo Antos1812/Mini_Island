@@ -47,7 +47,7 @@ class MiniControlIsland : Form
         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
         Label lbl = new Label() { Text = "MCI - Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 10, FontStyle.Bold), Location = new Point(8, 8) };
         cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList };
-        cmbSort.Items.AddRange(new string[] { "Najważniejsze", "Pamięć", "Nazwa" });
+        cmbSort.Items.AddRange(new string[] { "Important", "Storage", "Name" });
         cmbSort.SelectedIndex = 0;
         cmbSort.SelectedIndexChanged += (s, e) => RefreshProcesses();
         top.Controls.Add(lbl); top.Controls.Add(cmbSort);
@@ -69,12 +69,13 @@ class MiniControlIsland : Form
         trayIcon = new NotifyIcon();
         trayIcon.Icon = SystemIcons.Application;
         trayIcon.Visible = true;
-        trayIcon.Text = "Mini Control Island";
+        trayIcon.Text = "MCI";
 
         var menu = new ContextMenuStrip();
         menu.Items.Add("Open", null, (s, e) => { Visible = true; RefreshProcesses(); });
         menu.Items.Add("Close", null, (s, e) => Application.Exit());
-        trayIcon.ContextMenuStrip = menu;
+        menu.Items.Insert(0, new ToolStripLabel("by 1NT4K"));
+        
     }
 
     private void MiniControlIsland_KeyDown(object? sender, KeyEventArgs e)

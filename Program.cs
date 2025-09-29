@@ -210,40 +210,6 @@ class MiniControlIsland : Form
             }
         }
 
-    // void SettingsColor()
-    // {
-    //     try
-    //     {
-    //         FormBorderStyle = FormBorderStyle.None;
-    //         StartPosition = FormStartPosition.CenterScreen;
-    //         Size = new Size(620, 360);
-    //         TopMost = true;
-    //         BackColor = Color.FromArgb(30, 0, 30);
-    //         Opacity = 0.95;
-
-    //         Panel top = new Panel() { Height = 36, Dock = DockStyle.Top, Padding = new Padding(8) };
-    //         Label lbl = new Label() { Text = "MCI - Mini Control Island", AutoSize = true, ForeColor = Color.White, Font = new Font("SF-Pro-Display", 10, FontStyle.Bold), Location = new Point(8, 8) };
-    //         cmbSort = new ComboBox() { Width = 200, Location = new Point(180, 4), DropDownStyle = ComboBoxStyle.DropDownList };
-
-    //     }
-    //     catch (Exception)
-    //     {
-    //         MessageBox.Show("Cannot load Settings (￣_,￣ )");
-    //     }
-    // }
-
-
-    // void DarkMode()
-    // {
-    //     try
-    //     {
-    //         BackColor = Color.FromArgb(80, 120, 200);
-    //     }
-    //     catch (Exception)
-    //     {
-    //         MessageBox.Show("Cannot change to dark (￣_,￣ )");
-    //     }
-    // }
 
     void RestartApp()
     {

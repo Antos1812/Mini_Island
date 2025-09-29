@@ -53,7 +53,7 @@ class MiniControlIsland : Form
         top.Controls.Add(lbl); top.Controls.Add(cmbSort);
         Controls.Add(top);
 
-        refreshTimer = new System.Windows.Forms.Timer() { Interval = 2000 };
+        refreshTimer = new System.Windows.Forms.Timer() { Interval = 6000 };
         refreshTimer.Tick += (s, e) => RefreshProcesses();
         refreshTimer.Start();
 

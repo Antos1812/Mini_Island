@@ -23,3 +23,9 @@
 
 ### How it look for now...
 <img width="756" height="502" alt="image" src="https://github.com/user-attachments/assets/fad540e4-e24e-41d5-9f07-559377ddc667" />
+
+
+
+### Extra info
+1. If you have antivirus software such as Norton360, it may display scanning information for a few seconds after you launch the program. However, it will eventually display a message saying that the program is safe, etc. This may be annoying for a while, though.
+I'm working on this

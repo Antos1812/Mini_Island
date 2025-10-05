@@ -150,12 +150,24 @@ class MiniControlIsland : Form
             btnBlue.Click += (s, e) => Owner.BackColor = Color.FromArgb(80, 120, 200);
             Controls.Add(btnBlue);
 
+            Button btnRed = new Button()
+            {
+                Text = "Red Theme",
+                Location = new Point(190, 160),
+                Width = 150,
+                BackColor = Color.Red,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnRed.Click += (s, e) => Owner.BackColor = Color.FromArgb(186, 19, 21);
+            Controls.Add(btnRed);
+             
             Label lbl1 = new Label()
             {
                 Text = "ShortCuts:",
                 ForeColor = Color.White,
                 Font = new Font("SF-Pro-Display", 12, FontStyle.Bold),
-                Location = new Point(btnBlue.Left, btnBlue.Bottom +15),
+                Location = new Point(btnBlue.Left, btnBlue.Bottom +18),
                 AutoSize = true
             };
             Controls.Add(lbl1);
@@ -165,7 +177,7 @@ class MiniControlIsland : Form
                 Text = "('1-20') -> Focus     (Ctrl + '1-20') -> Kill     (Alt + '1-20') -> Settings (WIP)",
                 ForeColor = Color.White,
                 Font = new Font("SF-Pro-Display", 10, FontStyle.Bold),
-                Location = new Point(lbl1.Left, lbl1.Bottom +5),
+                Location = new Point(lbl1.Left, lbl1.Bottom +7),
                 AutoSize = true
             };
             Controls.Add(lbl2);

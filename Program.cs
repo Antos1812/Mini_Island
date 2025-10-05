@@ -161,7 +161,19 @@ class MiniControlIsland : Form
             };
             btnRed.Click += (s, e) => Owner.BackColor = Color.FromArgb(186, 19, 21);
             Controls.Add(btnRed);
-             
+
+            Button btnGreen = new Button()
+            {
+                Text = "Green Theme",
+                Location = new Point(190, 110),
+                Width = 150,
+                BackColor = Color.ForestGreen,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnGreen.Click += (s, e) => Owner.BackColor = Color.FromArgb(19, 186, 44);
+            Controls.Add(btnGreen);
+
             Label lbl1 = new Label()
             {
                 Text = "ShortCuts:",
